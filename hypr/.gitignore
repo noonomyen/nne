@@ -1,5 +1,5 @@
-hyprland/colors.conf
-hyprpaper.conf
+hyprland/colors.local.conf
+hyprpaper.local.conf
 hyprlock.conf
 workspaces.conf
 monitors.conf
