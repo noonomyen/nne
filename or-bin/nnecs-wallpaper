@@ -1,0 +1,36 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+    echo "Usage: nnecs-wallpaper <path_to_image>"
+    exit 1
+fi
+
+IMG_PATH=$(realpath "$1")
+
+if [ ! -f "$IMG_PATH" ]; then
+    echo "Error: Image file not found at $IMG_PATH"
+    exit 1
+fi
+
+DIR="$HOME/.config/hypr"
+cd "$DIR" || exit 1
+
+echo "Generating Matugen colors..."
+matugen image "$IMG_PATH"
+
+echo "Applying wallpaper config..."
+sed "s|@PATH@|$IMG_PATH|g" hyprpaper.template.conf > hyprpaper.local.conf
+
+echo "Applying hyprlock config..."
+sed "s|@PATH@|$IMG_PATH|g" hyprlock.template.conf > hyprlock.local.conf
+
+echo "Applying wallpaper via hyprctl..."
+hyprctl hyprpaper wallpaper ",$IMG_PATH" > /dev/null 2>&1
+
+sleep 1
+
+echo "Reloading hyprland..."
+hyprctl reload
+
+echo "Done!"
+

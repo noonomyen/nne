@@ -1,0 +1,10 @@
+[config]
+version_check = false
+
+[templates.hyprland]
+input_path = './templates/colors.conf'
+output_path = '../hypr/hyprland/colors.local.conf'
+
+[templates.quickshell]
+input_path = './templates/MatugenColor.qml'
+output_path = '../qs/MatugenColor.qml'
