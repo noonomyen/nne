@@ -3,7 +3,7 @@ version_check = false
 
 [templates.hyprland]
 input_path = './templates/colors.conf'
-output_path = '../hypr/hyprland/colors.local.conf'
+output_path = '../hypr/colors.local.conf'
 
 [templates.quickshell]
 input_path = './templates/MatugenColor.qml'
