@@ -1,6 +1,6 @@
 hyprland/colors.local.conf
 hyprpaper.local.conf
-hyprlock.conf
+hyprlock.local.conf
 workspaces.conf
 monitors.conf
 monitors.1.conf
