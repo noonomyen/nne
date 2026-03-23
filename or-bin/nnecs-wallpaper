@@ -19,10 +19,24 @@ echo "Generating Matugen colors..."
 matugen image "$IMG_PATH"
 
 echo "Applying wallpaper config..."
-sed "s|@PATH@|$IMG_PATH|g" hyprpaper.template.conf > hyprpaper.local.conf
+tmp_hyprpaper=$(mktemp) || { echo "Error: Failed to create temporary file for hyprpaper config" >&2; exit 1; }
+if sed "s|@PATH@|$IMG_PATH|g" hyprpaper.template.conf > "$tmp_hyprpaper"; then
+    mv "$tmp_hyprpaper" hyprpaper.local.conf
+else
+    echo "Error: Failed to generate hyprpaper.local.conf" >&2
+    rm -f "$tmp_hyprpaper"
+    exit 1
+fi
 
 echo "Applying hyprlock config..."
-sed "s|@PATH@|$IMG_PATH|g" hyprlock.template.conf > hyprlock.local.conf
+tmp_hyprlock=$(mktemp) || { echo "Error: Failed to create temporary file for hyprlock config" >&2; exit 1; }
+if sed "s|@PATH@|$IMG_PATH|g" hyprlock.template.conf > "$tmp_hyprlock"; then
+    mv "$tmp_hyprlock" hyprlock.local.conf
+else
+    echo "Error: Failed to generate hyprlock.local.conf" >&2
+    rm -f "$tmp_hyprlock"
+    exit 1
+fi
 
 echo "Applying wallpaper via hyprctl..."
 hyprctl hyprpaper wallpaper ",$IMG_PATH" > /dev/null 2>&1
